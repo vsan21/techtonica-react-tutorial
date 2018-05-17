@@ -1,3 +1,8 @@
+.WordSearch {
+  display:flex;
+  flex-direction: column;
+}
+
 .SearchFormContainer {
   display: flex;
   width: 80%;
