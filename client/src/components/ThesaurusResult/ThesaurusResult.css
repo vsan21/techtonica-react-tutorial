@@ -1,0 +1,22 @@
+.ThesaurusResult {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.ThesaurusResult .WordType {
+  margin-top:15px;
+  text-align:left;
+}
+
+.ThesaurusResult .WordType .WordTypeTitle{
+  font-weight: bold;
+}
+
+.ThesaurusResult .WordType .WordTypeGroup {
+  margin-top:5px;
+}
+
+.ThesaurusResult .WordType .WordTypeGroup .WordTypeGroupTitle {
+  font-weight: bold;
+}

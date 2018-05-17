@@ -1,13 +1,8 @@
-import React, {Component} from 'react';
-import "./ThesaurusResults.css";
+import React, { Component } from 'react';
+import "./ThesaurusResult.css";
 
 export default class ThesaurusResults extends Component {
-  constructor(props){
-    super(props);
-
-  }
-
-   getWordTypeExamples = (wordTypeExamples) => {
+  getWordTypeExamples = (wordTypeExamples) => {
     if (wordTypeExamples && wordTypeExamples.length > 0) {
       return wordTypeExamples.reduce((all, word, index) => {
         if (index === wordTypeExamples.length - 1) {
@@ -18,17 +13,18 @@ export default class ThesaurusResults extends Component {
         return all
       }, "");
     }
-  }
+  };
 
-  getData () {
-    const wordTypes = Object.keys(this.props.data);
+  getTerms() {
+    const result = this.props.result;
+    const wordTypes = Object.keys(result);
 
     if (wordTypes && wordTypes.length > 0) {
-      const terms = wordTypes.map((wordType) => {
+      return wordTypes.map((wordType) => {
         const wordTypeObj = { wordType };
         const { ant, syn } = result[ wordType ];
 
-        const [ antonyms, synonyms ] = [ this.getWordTypeExamples(ant), this.getWordTypeExamples(syn) ]
+        const [ antonyms, synonyms ] = [ this.getWordTypeExamples(ant), this.getWordTypeExamples(syn) ];
         if (antonyms) {
           wordTypeObj[ "antonyms" ] = antonyms
         }
@@ -39,36 +35,29 @@ export default class ThesaurusResults extends Component {
 
         return wordTypeObj;
       });
-
-      return { terms }
-    } else {
-      return initialState.data
     }
   }
 
-  render(){
-    const { conditionalRender, data, requestStatus } = props;
-    const { terms } = data;
+  render() {
+    const terms = this.getTerms();
 
     return (
-      <div className={ `Result-Section ThesaurusResults` }>
-        <div className={ `Result ThesaurusResult` }>
-          { conditionalRender({
-            status: requestStatus,
-            result: (terms && terms.map((term) => {
-                  const { wordType, antonyms, synonyms } = term;
-                  return (
-                    <div className={ `WordType` } key={ `definition-${wordType}` }>
-                      <div>{ `${wordType.toUpperCase()}:` }</div>
-                      { antonyms && <div>antonyms: { antonyms } </div> }
-                      { synonyms && <div>synonyms: { synonyms } </div> }
-                    </div>
-                  )
-                }
-              )
+      <div className={ `ThesaurusResult` }>
+        <h2>Thesaurus Result</h2>
+        {
+          (terms && terms.map((term) => {
+                const { wordType, antonyms, synonyms } = term;
+                return (
+                  <div className={ `WordType` } key={ `definition-${wordType}` }>
+                    <div className='WordTypeTitle'>{ `${wordType.toUpperCase()}:` }</div>
+                    { antonyms && <div className="WordTypeGroup"><span className="WordTypeGroupTitle">Antonyms:</span> { antonyms } </div> }
+                    { synonyms && <div className="WordTypeGroup"><span className="WordTypeGroupTitle">Synonyms:</span> { synonyms } </div> }
+                  </div>
+                )
+              }
             )
-          }) }
-        </div>
+          )
+        }
       </div>
     )
   }
