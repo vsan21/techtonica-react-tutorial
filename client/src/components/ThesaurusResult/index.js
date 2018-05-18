@@ -1,45 +1,12 @@
 import React, { Component } from 'react';
 import "./ThesaurusResult.css";
+import { getTerms } from "../../util/thesaurusHelper";
 
 export default class ThesaurusResults extends Component {
-  getWordTypeExamples = (wordTypeExamples) => {
-    if (wordTypeExamples && wordTypeExamples.length > 0) {
-      return wordTypeExamples.reduce((all, word, index) => {
-        if (index === wordTypeExamples.length - 1) {
-          all = `${all} ${word}`;
-        } else {
-          all = `${all} ${word},`;
-        }
-        return all
-      }, "");
-    }
-  };
-
-  getTerms() {
-    const result = this.props.result;
-    const wordTypes = Object.keys(result);
-
-    if (wordTypes && wordTypes.length > 0) {
-      return wordTypes.map((wordType) => {
-        const wordTypeObj = { wordType };
-        const { ant, syn } = result[ wordType ];
-
-        const [ antonyms, synonyms ] = [ this.getWordTypeExamples(ant), this.getWordTypeExamples(syn) ];
-        if (antonyms) {
-          wordTypeObj[ "antonyms" ] = antonyms
-        }
-
-        if (synonyms) {
-          wordTypeObj[ "synonyms" ] = synonyms
-        }
-
-        return wordTypeObj;
-      });
-    }
-  }
 
   render() {
-    const terms = this.getTerms();
+    const { result } = this.props;
+    const terms = getTerms(result);
 
     return (
       <div className={ `ThesaurusResult` }>
