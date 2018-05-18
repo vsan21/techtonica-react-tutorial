@@ -3,6 +3,16 @@ import "./ThesaurusResult.css";
 import { getTerms } from "../../util/thesaurusHelper";
 
 export default class ThesaurusResults extends Component {
+  renderSynonmys = (synonyms) => {
+    if (synonyms) {
+      return (
+        <div className="WordTypeGroup">
+          <span className="WordTypeGroupTitle">Synonyms:</span>
+          { synonyms }
+        </div>
+      )
+    }
+  }
 
   render() {
     const { result } = this.props;
@@ -26,12 +36,8 @@ export default class ThesaurusResults extends Component {
                     </div>
                     }
                     {
-                      synonyms &&
-                      <div className="WordTypeGroup">
-                        <span className="WordTypeGroupTitle">Synonyms:</span>
-                        { synonyms }
-                      </div>
-                    }
+                      //this.renderSynonmys(synonyms)
+                       }
                   </div>
                 )
               }

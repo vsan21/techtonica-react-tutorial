@@ -3,7 +3,7 @@ import axios from 'axios';
 import './WordSearch.css';
 import ThesaurusResult from '../ThesaurusResult';
 
-const thesaurusSearchUrl = `https://words.bighugelabs.com/api/2/953e496f328a4dbe6dc8a300da56c81e`;
+const baseUrl = `https://words.bighugelabs.com/api/2/953e496f328a4dbe6dc8a300da56c81e`;
 
 export default class WordSearch extends Component {
   constructor(props) {
@@ -20,12 +20,14 @@ export default class WordSearch extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    axios.get(`${thesaurusSearchUrl}/${this.state.word}/json`)
+
+    axios.get(`${baseUrl}/${this.state.word}/json`)
       .then(response => this.setState({ thesaurusResult: response.data }))
       .catch(error => console.log(error))
   };
 
   render() {
+    const {thesaurusResult} = this.state;
     return (
       <div className={ `WordSearch` }>
         <div
@@ -50,7 +52,7 @@ export default class WordSearch extends Component {
             />
           </form>
         </div>
-        { this.state.thesaurusResult && <ThesaurusResult result={ this.state.thesaurusResult }/> }
+        { thesaurusResult && <ThesaurusResult result={ thesaurusResult }/> }
       </div>
     )
   }
