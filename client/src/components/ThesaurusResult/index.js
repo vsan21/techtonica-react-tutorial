@@ -50,8 +50,21 @@ export default class ThesaurusResults extends Component {
                 return (
                   <div className={ `WordType` } key={ `definition-${wordType}` }>
                     <div className='WordTypeTitle'>{ `${wordType.toUpperCase()}:` }</div>
-                    { antonyms && <div className="WordTypeGroup"><span className="WordTypeGroupTitle">Antonyms:</span> { antonyms } </div> }
-                    { synonyms && <div className="WordTypeGroup"><span className="WordTypeGroupTitle">Synonyms:</span> { synonyms } </div> }
+                    { antonyms &&
+                    <div className="WordTypeGroup">
+                      <span className="WordTypeGroupTitle">
+                        Antonyms:
+                      </span>
+                      { antonyms }
+                    </div>
+                    }
+                    {
+                      synonyms &&
+                      <div className="WordTypeGroup">
+                        <span className="WordTypeGroupTitle">Synonyms:</span>
+                        { synonyms }
+                      </div>
+                    }
                   </div>
                 )
               }
